@@ -11,6 +11,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 //requiring lodash module
 const _ = require("lodash");
+require('dotenv').config();
 
 //declaring out app
 const app = express();
@@ -26,10 +27,16 @@ app.use(express.static("public"));
 mongoose.set('useFindAndModify', false);
 
 //creating a new db for todolist 
-mongoose.connect("mongodb+srv://biswa-dev:Test@123@cluster0.pisny.mongodb.net/todolistDB?retryWrites=true&w=majority", {
+//"mongodb://localhost:27017/todolistDB"
+const dbUrl = process.env.DB_URL; 
+mongoose.connect(dbUrl, {
     useNewUrlParser: true, 
     useUnifiedTopology: true
-});
+});//.then(()=>{
+//     console.log("database connection successfull...");
+// }).catch((err)=>{
+//     console.log(err);
+// })
 
 //creating itemSchema
 const itemSchema = {
@@ -208,3 +215,7 @@ app.listen(port, function(){
 
 
 //mongo "mongodb+srv://cluster0.pisny.mongodb.net/myFirstDatabase" --username biswa-dev
+
+
+//online link for our app
+//https://tranquil-fortress-93902.herokuapp.com/
